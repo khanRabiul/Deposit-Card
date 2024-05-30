@@ -20,4 +20,41 @@ amountDepositButton.addEventListener('click', ()=>{
     balanceAmount.innerHTML = tempAmount -  expenseValue.innerHTML;
     depositAmount.value = '';
    }
+});
+
+const list = document.getElementById("list");
+const listCreator = (expenseName, expenseValue) => {
+/*    <div>
+      <p></p>
+      <p></p>
+   </div> */
+   let subListContent = document.createElement('div');
+   subListContent.classList.add("sublist-content","flex-space");
+   subListContent.innerHTML =`<p class ="product">${expenseName}</p> <p class = "amount">${expenseValue}</p>`;
+
+   list.appendChild(subListContent)
+}
+const expenseAmountButton = document.getElementById('expense-amount-button');
+const productTitle = document.getElementById('product-title');
+const userAmount = document.getElementById('user-amount');
+const productError = document.getElementById('product-title-error');
+
+expenseAmountButton.addEventListener('click', () => {
+   if(!productTitle.value || !userAmount.value) {
+      productError.classList.remove('hide');
+      productError.innerText = `Expenses value cna't be empty`;
+      return;
+   } else if (productTitle.value.trim().length <= 0 || userAmount.value <= 0) {
+      productError.classList.remove('hide');
+      productError.innerText = "Invalid data";
+      return;
+   }
+   let expenditure = parseInt(userAmount.value);
+   let sum = parseInt(expenseValue.innerText) + expenditure;
+   const totalBaalance = tempAmount - sum;
+   expenseValue.innerText = sum;
+   balanceAmount.innerHTML = totalBaalance;
+   listCreator(productTitle.value,userAmount.value)
+   productTitle.value = "";
+   userAmount.value = "";
 })
