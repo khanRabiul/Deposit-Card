@@ -23,6 +23,22 @@ amountDepositButton.addEventListener('click', ()=>{
 });
 
 const list = document.getElementById("list");
+const modifyElement = (element, edit = false) => {
+   let currentBalance = balanceAmount.innerText;
+   let currentExpenses = expenseValue.innerText;
+   let parentDiv = element.parentElement; 
+   let parentAmount = parentDiv.querySelector('.amount').innerText;
+   
+   if (edit) {
+      let parentText = parentDiv.querySelector('.product').innerText;
+      userAmount.value = parentAmount;
+      productTitle.value = parentText;
+   };
+
+   balanceAmount.innerText = parseInt(currentBalance) + parseInt(parentAmount);
+   expenseValue.innerText = parseInt(currentExpenses) - parseInt(parentAmount);
+   parentDiv.remove();
+}
 const listCreator = (expenseName, expenseValue) => {
 /*    <div>
       <p></p>
@@ -34,10 +50,18 @@ const listCreator = (expenseName, expenseValue) => {
    let editButton = document.createElement('button');
    editButton.classList.add('edit', 'fa-solid', 'fa-pen-to-square');
    editButton.style.fontSize = '1.2em';
+   editButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      modifyElement(editButton, true);
+   });
 
    let deletButton = document.createElement('button');
    deletButton.classList.add('delete', 'fa-solid', 'fa-trash-can');
    deletButton.style.fontSize = '1.2em';
+   deletButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      modifyElement(deletButton);
+   });
 
    subListContent.appendChild(editButton);
    subListContent.appendChild(deletButton);
