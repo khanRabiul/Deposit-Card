@@ -34,7 +34,13 @@ const listCreator = (expenseName, expenseValue) => {
    let editButton = document.createElement('button');
    editButton.classList.add('edit', 'fa-solid', 'fa-pen-to-square');
    editButton.style.fontSize = '1.2em';
+
+   let deletButton = document.createElement('button');
+   deletButton.classList.add('delete', 'fa-solid', 'fa-trash-can');
+   deletButton.style.fontSize = '1.2em';
+
    subListContent.appendChild(editButton);
+   subListContent.appendChild(deletButton);
    list.appendChild(subListContent);
 }
 const expenseAmountButton = document.getElementById('expense-amount-button');
@@ -60,4 +66,4 @@ expenseAmountButton.addEventListener('click', () => {
    listCreator(productTitle.value,userAmount.value)
    productTitle.value = "";
    userAmount.value = "";
-})
+});
